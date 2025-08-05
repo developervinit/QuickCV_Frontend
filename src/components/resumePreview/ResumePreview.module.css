@@ -1,0 +1,115 @@
+.preview {
+  margin: 60px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.resumeCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 800px;
+  width: 100%;
+}
+
+.leftSide {
+  background: linear-gradient(135deg, #d1fae5 0%, #fed7aa 100%);
+  padding: 32px;
+}
+
+.profile {
+  background: #374151;
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background: #6b7280;
+  border-radius: 50%;
+}
+
+.info h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.info p {
+  font-size: 12px;
+  color: #d1d5db;
+}
+
+.about {
+  background: #fed7aa;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.about h4 {
+  margin-bottom: 12px;
+  color: #374151;
+}
+
+.about p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.rightSide {
+  padding: 32px;
+}
+
+.contact {
+  margin-bottom: 32px;
+}
+
+.contact h4 {
+  margin-bottom: 16px;
+  color: #374151;
+}
+
+.contact p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.experience h4 {
+  margin-bottom: 16px;
+  color: #374151;
+}
+
+.job {
+  border-left: 4px solid #10b981;
+  padding-left: 16px;
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.job p {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .resumeCard {
+    grid-template-columns: 1fr;
+  }
+}
