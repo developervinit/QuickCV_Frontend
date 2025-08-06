@@ -1,6 +1,18 @@
-import styles from "./SignupPage.module.css"
+import styles from "./SignupPage.module.css";
+import { useNavigate } from "react-router-dom";
 
-function SignupPage({ onNavigate }) {
+function SignupPage() {
+
+  const navigate = useNavigate();
+
+  const handleRedirect = (pageName) => {
+    if(pageName === "landingPage"){
+      navigate("/");
+    } else {
+      navigate(`/${pageName}`);
+    }
+  };
+
   const handleGoogleSignup = () => {
     // Handle Google signup logic here
     console.log("Google signup clicked")
@@ -9,7 +21,7 @@ function SignupPage({ onNavigate }) {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.logo} onClick={() => onNavigate("landing")}>
+        <div className={styles.logo} onClick={() => handleRedirect("landingPage")}>
           <div className={styles.logoIcon}>Q</div>
           <span>QuickCV</span>
         </div>
@@ -42,22 +54,22 @@ function SignupPage({ onNavigate }) {
             Signup with Google
           </button>
 
-          <div className={styles.divider}>
+          {/* <div className={styles.divider}>
             <span>or</span>
-          </div>
+          </div> */}
 
-          <form className={styles.form}>
+          {/* <form className={styles.form}>
             <input type="email" placeholder="Email address" className={styles.input} required />
             <input type="password" placeholder="Password" className={styles.input} required />
             <input type="password" placeholder="Confirm Password" className={styles.input} required />
             <button type="submit" className={styles.submitBtn}>
               Create Account
             </button>
-          </form>
+          </form> */}
 
           <p className={styles.loginLink}>
             Already have an account?{" "}
-            <button onClick={() => onNavigate("login")} className={styles.link}>
+            <button onClick={() => handleRedirect("login")} className={styles.link}>
               Sign in
             </button>
           </p>

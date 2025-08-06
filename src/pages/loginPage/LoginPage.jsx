@@ -1,6 +1,17 @@
-import styles from "./LoginPage.module.css"
+import styles from "./LoginPage.module.css";
+import { useNavigate } from "react-router-dom";
 
-function LoginPage({ onNavigate }) {
+function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleRedirect = (pageName) => {
+    if(pageName === "landingPage"){
+      navigate("/");
+    } else {
+      navigate(`/${pageName}`);
+    }
+  };
+
   const handleGoogleLogin = () => {
     // Handle Google login logic here
     console.log("Google login clicked")
@@ -9,7 +20,7 @@ function LoginPage({ onNavigate }) {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.logo} onClick={() => onNavigate("landing")}>
+        <div className={styles.logo} onClick={() => handleRedirect("landingPage")}>
           <div className={styles.logoIcon}>Q</div>
           <span>QuickCV</span>
         </div>
@@ -42,23 +53,23 @@ function LoginPage({ onNavigate }) {
             Login with Google
           </button>
 
-          <div className={styles.divider}>
+          {/* <div className={styles.divider}>
             <span>or</span>
-          </div>
+          </div> */}
 
-          <form className={styles.form}>
+          {/* <form className={styles.form}>
             <input type="email" placeholder="Email address" className={styles.input} required />
             <input type="password" placeholder="Password" className={styles.input} required />
             <button type="submit" className={styles.submitBtn}>
               Sign In
             </button>
-          </form>
+          </form> */}
 
-          <button className={styles.forgotPassword}>Forgot your password?</button>
+          {/* <button className={styles.forgotPassword}>Forgot your password?</button> */}
 
           <p className={styles.signupLink}>
             Don't have an account?{" "}
-            <button onClick={() => onNavigate("signup")} className={styles.link}>
+            <button onClick={() => handleRedirect("signup")} className={styles.link}>
               Sign up
             </button>
           </p>
