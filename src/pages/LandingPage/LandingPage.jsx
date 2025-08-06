@@ -8,10 +8,6 @@ import styles from "./LandingPage.module.css"
 
 function LandingPage() {
 
-    //way of using env variable with VITE
-    const appName = import.meta.env.VITE_PUBLIC_APP_NAME;
-    console.log(appName); // "QuickCV"
-
   return (
     <div className={styles.container}>
       <Header />
