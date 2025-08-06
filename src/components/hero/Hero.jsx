@@ -1,6 +1,13 @@
-import styles from "./Hero.module.css"
+import styles from "./Hero.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
+
+  const handleRedirect = (pageName) => {
+    navigate(`/${pageName}`);
+  };
+
   return (
     <section className={styles.hero}>
       <p className={styles.tagline}>BEST ONLINE RESUME BUILDER</p>
@@ -11,9 +18,11 @@ function Hero() {
         with a <span className={styles.resume}>resume</span>
       </h1>
 
-      <button className={styles.cta}>Order Now →</button>
+      <button className={styles.cta} onClick={() => handleRedirect("signup")}>
+        SignUp →
+      </button>
     </section>
-  )
+  );
 }
 
-export default Hero
+export default Hero;

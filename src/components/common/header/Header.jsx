@@ -1,6 +1,13 @@
-import styles from "./Header.module.css"
+import styles from "./Header.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
+  const handleRedirect = (pageName) => {
+    navigate(`/${pageName}`);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -24,11 +31,21 @@ function Header() {
       </nav> */}
 
       <div className={styles.actions}>
-        <button className={styles.signIn}>Login</button>
-        <button className={styles.orderBtn}>Sign Up</button>
+        <button
+          className={styles.signIn}
+          onClick={() => handleRedirect("login")}
+        >
+          Login
+        </button>
+        <button
+          className={styles.orderBtn}
+          onClick={() => handleRedirect("signup")}
+        >
+          Sign Up
+        </button>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
