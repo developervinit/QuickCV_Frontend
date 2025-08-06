@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/common/header/Header';
 import Hero from '../../components/hero/Hero';
-import ResumePreview from '../../components/ResumePreview/ResumePreview';
+import ResumePreview from '../../components/resumePreview/ResumePreview';
 import CompanyLogos from '../../components/companyLogos/CompanyLogos';
 import styles from "./LandingPage.module.css"
 
