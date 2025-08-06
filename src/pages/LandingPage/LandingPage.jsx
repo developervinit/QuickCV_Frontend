@@ -1,9 +1,8 @@
-import React from 'react';
+import styles from "./Landing.module.css"
 import Header from '../../components/common/header/Header';
 import Hero from '../../components/hero/Hero';
 import ResumePreview from '../../components/resumePreview/ResumePreview';
 import CompanyLogos from '../../components/companyLogos/CompanyLogos';
-import styles from "./LandingPage.module.css"
 
 
 function LandingPage() {
