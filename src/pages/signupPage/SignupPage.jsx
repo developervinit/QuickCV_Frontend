@@ -10,8 +10,8 @@ function SignupPage({ onNavigate }) {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo} onClick={() => onNavigate("landing")}>
-          <div className={styles.logoIcon}>J</div>
-          <span>JewelKit</span>
+          <div className={styles.logoIcon}>Q</div>
+          <span>QuickCV</span>
         </div>
       </header>
 
