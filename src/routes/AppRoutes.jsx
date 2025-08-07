@@ -15,21 +15,13 @@ const AppRoutes = () => (
     <Route path="/signup" element={<SignupPage />} />
     <Route path="/" element={<LandingPage />}/>
 
-    {/* Protected routes with layout */}
-    {/* <Route
-      path="/home"
-      element={
-        <ProtectedRoute>
-          <Home />
-        </ProtectedRoute>
-      }
-    /> */}
 
+    {/* Just uncomment to Protected routes with layout */}
     <Route
       element={
-        
+        // <ProtectedRoute>
           <MainLayout />
-        
+        // </ ProtectedRoute>
       }
     >
       {/* All these routes will use MainLayout and be protected */}
