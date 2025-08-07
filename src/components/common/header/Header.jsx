@@ -15,11 +15,11 @@ function Header() {
         <span>QuickCV</span>
       </div>
 
-      {/* <nav className={styles.nav}>
-        <a href="#" className={styles.navLink}>
+      <nav className={styles.nav}>
+        <a href="/home" className={styles.navLink}>
           Home
         </a>
-        <a href="#" className={styles.navLink}>
+        {/* <a href="#" className={styles.navLink}>
           Resume
         </a>
         <a href="#" className={styles.navLink}>
@@ -27,8 +27,8 @@ function Header() {
         </a>
         <a href="#" className={styles.navLink}>
           Prices
-        </a>
-      </nav> */}
+        </a> */}
+      </nav>
 
       <div className={styles.actions}>
         <button
