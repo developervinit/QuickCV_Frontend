@@ -7,6 +7,8 @@ import LandingPage from '../pages/LandingPage/LandingPage';
 import NotFound from '../pages/NotFound';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import MainLayout from '../layouts/mainLayout/MainLayout';
+import ResumeFormPage from '../pages/resumeFormPage/ResumeFormPage';
+import ResumeListPage from '../pages/resumeListPage/ResumeListPage';
 
 const AppRoutes = () => (
   <Routes>
@@ -25,10 +27,10 @@ const AppRoutes = () => (
       }
     >
       {/* All these routes will use MainLayout and be protected */}
-      <Route path="/home" element={<Home />} />
+      <Route path="/home" element={<ResumeFormPage />} />
       {/* Add more protected routes here */}
       {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-      <Route path="/settings" element={<Settings />} />
+      <Route path="/resumelist" element={<ResumeListPage />} />
     </Route>
 
     {/* Catch-all route */}

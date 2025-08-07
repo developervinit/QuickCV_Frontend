@@ -10,7 +10,7 @@ const MainLayout = () => {
       <div className={styles.mainLayout}>
         <aside className={styles.sidebar}>
           <NavLink to="/home" className={styles.navLink}>Create Resume</NavLink>
-          <NavLink to="/settings" className={styles.navLink}>My Resumes</NavLink>
+          <NavLink to="/resumelist" className={styles.navLink}>My Resumes</NavLink>
           <NavLink to="/" className={styles.navLink}>Log Out</NavLink>
         </aside>
 
