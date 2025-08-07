@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 // import Header from '../components/common/header/Header';
-import styles from './MainLayout.module.css'; // Import as CSS Module
+import styles from './MLayout.module.css'; // Import as CSS Module
 
 const MainLayout = () => {
   return (
