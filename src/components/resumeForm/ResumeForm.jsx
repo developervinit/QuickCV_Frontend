@@ -1,6 +1,8 @@
+// src/components/resumeForm/ResumeForm.jsx
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Step1PersonalInfo from './steps/step1PersonalInfo/Step1PersonalInfo';
+import Step2WorkExperience from './steps/step2WorkExperience/Step2WorkExperience';
 import styles from './ResumeForm.module.css';
 
 const ResumeForm = () => {
@@ -8,9 +10,9 @@ const ResumeForm = () => {
 
   return (
     <div className={styles.formContainer}>
-      {/* progress UI can be added here using currentStep */}
       {currentStep === 1 && <Step1PersonalInfo />}
-      {/* later: render step 2..6 accordingly */}
+      {currentStep === 2 && <Step2WorkExperience />}
+      {/* later: render step 3..6 accordingly */}
     </div>
   );
 };
