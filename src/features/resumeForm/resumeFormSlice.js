@@ -12,39 +12,63 @@ const initialState = {
     linkedin: '',
     website: '',
     summary: '',
-    profileImageDataUrl: null
+    profileImageDataUrl: null,
   },
-  workExperience: [], // <- new
+  workExperience: [],      // step 2
+  education: [],           // step 3
   ui: {
-    currentStep: 1
-  }
+    currentStep: 1,
+  },
 };
 
 const resumeFormSlice = createSlice({
   name: 'resumeForm',
   initialState,
   reducers: {
+    // STEP 1
     setPersonalInfo(state, action) {
       state.personalInfo = { ...state.personalInfo, ...action.payload };
     },
+
+    // STEP 2
     setWorkExperience(state, action) {
-      // action.payload should be an array
-      state.workExperience = action.payload;
+      state.workExperience = action.payload; // array
     },
     addWorkExperienceItem(state, action) {
       state.workExperience.push(action.payload);
     },
     removeWorkExperienceItem(state, action) {
-      // action.payload = id
-      state.workExperience = state.workExperience.filter((item) => item.id !== action.payload);
+      state.workExperience = state.workExperience.filter(
+        (item) => item.id !== action.payload
+      );
     },
+
+    // STEP 3 (new)
+    setEducation(state, action) {
+      state.education = action.payload; // array
+    },
+    addEducationItem(state, action) {
+      state.education.push(action.payload);
+    },
+    updateEducationItem(state, action) {
+      const { id, changes } = action.payload;
+      const idx = state.education.findIndex((e) => e.id === id);
+      if (idx !== -1) {
+        state.education[idx] = { ...state.education[idx], ...changes };
+      }
+    },
+    removeEducationItem(state, action) {
+      state.education = state.education.filter((e) => e.id !== action.payload);
+    },
+
+    // NAV / COMMON
     setCurrentStep(state, action) {
       state.ui.currentStep = action.payload;
     },
     resetForm(state) {
       Object.assign(state, initialState);
-    }
-  }
+    },
+  },
 });
 
 export const {
@@ -52,8 +76,12 @@ export const {
   setWorkExperience,
   addWorkExperienceItem,
   removeWorkExperienceItem,
+  setEducation,
+  addEducationItem,
+  updateEducationItem,
+  removeEducationItem,
   setCurrentStep,
-  resetForm
+  resetForm,
 } = resumeFormSlice.actions;
 
 export default resumeFormSlice.reducer;
