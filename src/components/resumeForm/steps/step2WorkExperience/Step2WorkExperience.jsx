@@ -26,12 +26,6 @@ const getEmptyEntry = () => ({
   projectStory: ''
 });
 
-const toArrayFromComma = (str) =>
-  String(str || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean);
-
 const Step2WorkExperience = () => {
   const dispatch = useDispatch();
   const persisted = useSelector((state) => state.resumeForm.workExperience || []);
@@ -54,6 +48,8 @@ const Step2WorkExperience = () => {
     mode: 'onChange',
     resolver: yupResolver(step2WorkExperienceSchema)
   });
+
+  console.log(isValid);
 
   const { fields, append, remove, update } = useFieldArray({
     control,
@@ -108,19 +104,13 @@ const Step2WorkExperience = () => {
 
   // Save step and go to next
   const onSubmit = (data) => {
-    // Convert comma-separated string fields to arrays before dispatching
-    const normalized = data.workExperience.map((we) => ({
-      ...we,
-      coreRoleSkills: toArrayFromComma(we.coreRoleSkills),
-      softSkills: toArrayFromComma(we.softSkills),
-      techStack: toArrayFromComma(we.techStack),
-      tools: toArrayFromComma(we.tools)
-    }));
+    // We are not converting comma-separated string fields to arrays before dispatching
 
-    dispatch(setWorkExperience(normalized));
+    dispatch(setWorkExperience(data.workExperience));
     dispatch(setCurrentStep(3));
   };
 
+  
   // Back to step 1
   const handleBack = () => {
     dispatch(setCurrentStep(1));

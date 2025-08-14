@@ -16,6 +16,12 @@ import { setCurrentStep, resetForm } from '../../features/resumeForm/resumeFormS
 import StepIndicator from './components/stepIndicator/StepIndicator';
 import axios from '../../services/axiosInstance'; // your axios instance
 
+const toArrayFromComma = (str) =>
+  String(str || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+
 const ResumeForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,10 +30,20 @@ const ResumeForm = () => {
 
   // Final submit handler - collects redux state and sends to backend
   const handleFinalSubmit = async () => {
+
+    //Normalizing step-2 data from comma separated value to array.
+    const normalized = resumeState.workExperience.map((we) => ({
+          ...we,
+          coreRoleSkills: toArrayFromComma(we.coreRoleSkills),
+          softSkills: toArrayFromComma(we.softSkills),
+          techStack: toArrayFromComma(we.techStack),
+          tools: toArrayFromComma(we.tools)
+        }));
+
     try {
       const payload = {
         personalInfo: resumeState.personalInfo,
-        workExperience: resumeState.workExperience,
+        workExperience: normalized,
         education: resumeState.education,
         certifications: resumeState.certifications,
         projects: resumeState.projects,
@@ -41,8 +57,8 @@ const ResumeForm = () => {
 
       toast.success('Resume saved successfully');
 
-      // Optionally reset the form
-      dispatch(resetForm());
+      // This is to reset the form. we will not reset the form on submitting it. 
+      // dispatch(resetForm());
 
       // Optionally navigate to resume list / preview page
       // navigate('/resume-list');
