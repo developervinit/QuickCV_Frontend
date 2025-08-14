@@ -1,3 +1,50 @@
 .active {
   background-color: red;
 }
+
+/* StepIndicator.module.css */
+
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem; /* space between steps */
+  padding: 0;
+  margin: 1rem 0;
+  list-style: none;
+  flex-wrap: wrap; /* responsive wrap */
+}
+
+li {
+  background-color: #e0e0e0; /* circle background */
+  color: #333;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%; /* makes it a circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer; /* hand sign on hover */
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+li:hover {
+  background-color: #4cafef; /* hover color */
+  color: white;
+  transform: scale(1.05);
+}
+
+.active {
+  background-color: #4caf50; /* active step color */
+  color: white;
+}
+
+@media (max-width: 600px) {
+  li {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+}

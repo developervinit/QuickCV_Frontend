@@ -12,13 +12,13 @@ const StepIndicator = () => {
         dispatch(setCurrentStep(stepNumber));
       }
 
-    return (<ul>
-      <li className={currentStep === 1 ? styles.active : ""} onClick={() => stepNavigatorFunction(1)}>step-1</li>
-      <li className={currentStep === 2 ? styles.active : ""} onClick={() => stepNavigatorFunction(2)}>step-2</li>
-      <li className={currentStep === 3 ? styles.active : ""} onClick={() => stepNavigatorFunction(3)}>step-3</li>
-      <li className={currentStep === 4 ? styles.active : ""} onClick={() => stepNavigatorFunction(4)}>step-4</li>
-      <li className={currentStep === 5 ? styles.active : ""} onClick={() => stepNavigatorFunction(5)}>step-5</li>
-      <li className={currentStep === 6 ? styles.active : ""} onClick={() => stepNavigatorFunction(6)}>step-6</li>
+    return (<ul className={styles.ul}>
+      <li className={currentStep === 1 ? styles.active : styles.li} onClick={() => stepNavigatorFunction(1)}>step1</li>
+      <li className={currentStep === 2 ? styles.active : styles.li} onClick={() => stepNavigatorFunction(2)}>step2</li>
+      <li className={currentStep === 3 ? styles.active : styles.li} onClick={() => stepNavigatorFunction(3)}>step3</li>
+      <li className={currentStep === 4 ? styles.active : styles.li} onClick={() => stepNavigatorFunction(4)}>step4</li>
+      <li className={currentStep === 5 ? styles.active : styles.li} onClick={() => stepNavigatorFunction(5)}>step5</li>
+      <li className={currentStep === 6 ? styles.active : styles.li} onClick={() => stepNavigatorFunction(6)}>step6</li>
     </ul>)
 
 }
