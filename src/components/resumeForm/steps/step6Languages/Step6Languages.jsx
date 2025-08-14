@@ -202,7 +202,7 @@ const Step6Languages = ({ onSubmitAll }) => {
           onNext={handleSubmit(onSubmit)}
           backLabel="Back"
           nextLabel="Submit"
-          isNextSubmit={true}
+          isSubmitting={false}
         />
       </div>
     </form>
