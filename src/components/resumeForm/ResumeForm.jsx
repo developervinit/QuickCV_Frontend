@@ -13,6 +13,7 @@ import Step6Languages from './steps/step6Languages/Step6Languages';
 
 import styles from './ResumeForm.module.css';
 import { setCurrentStep, resetForm } from '../../features/resumeForm/resumeFormSlice';
+import StepIndicator from './components/stepIndicator/StepIndicator';
 import axios from '../../services/axiosInstance'; // your axios instance
 
 const ResumeForm = () => {
@@ -54,6 +55,8 @@ const ResumeForm = () => {
   };
 
   return (
+    <>
+    <StepIndicator />
     <div className={styles.formContainer}>
       {currentStep === 1 && <Step1PersonalInfo />}
       {currentStep === 2 && <Step2WorkExperience />}
@@ -62,6 +65,7 @@ const ResumeForm = () => {
       {currentStep === 5 && <Step5Projects />}
       {currentStep === 6 && <Step6Languages onSubmitAll={handleFinalSubmit} />}
     </div>
+    </>
   );
 };
 
