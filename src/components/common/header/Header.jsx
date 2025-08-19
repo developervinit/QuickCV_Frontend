@@ -1,5 +1,6 @@
 import styles from "./Header.module.css";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../logo/Logo";
 
 function Header() {
   const navigate = useNavigate();
@@ -10,11 +11,7 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>Q</div>
-        <span>QuickCV</span>
-      </div>
-
+      <Logo />
       <nav className={styles.nav}>
         <a href="/home" className={styles.navLink}>
           Home

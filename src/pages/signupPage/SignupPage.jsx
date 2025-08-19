@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupWithEmail } from '../../features/auth/authThunks';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
+import Logo from '../../components/logo/Logo';
 import styles from './SignupPage.module.css';
 
 const SignupPage = () => {
@@ -157,6 +158,7 @@ const SignupPage = () => {
             Already have an account? <Link to="/login">Sign in</Link>
           </p>
         </div>
+        <Logo />
       </div>
     </div>
   );

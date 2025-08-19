@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginWithEmail } from '../../features/auth/authThunks';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 import styles from './LoginPage.module.css';
+import Logo from '../../components/logo/Logo';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -118,6 +119,7 @@ const LoginPage = () => {
             Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
         </div>
+        <Logo />
       </div>
     </div>
   );
