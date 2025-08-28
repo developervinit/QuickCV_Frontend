@@ -2,8 +2,6 @@
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/loginPage/LoginPage';
 import SignupPage from '../pages/signupPage/SignupPage';
-import Home from '../pages/Home';
-import Settings from '../pages/Settings';
 import LandingPage from '../pages/LandingPage/LandingPage';
 import NotFound from '../pages/NotFound';
 import ProtectedRoute from '../components/common/ProtectedRoute';
@@ -34,7 +32,6 @@ const AppRoutes = () => (
     >
       <Route path="/home" element={<ResumeFormPage />} />
       <Route path="/resumelist" element={<ResumeListPage />} />
-      <Route path="/settings" element={<Settings />} />
     </Route>
 
     {/* Catch-all route */}
