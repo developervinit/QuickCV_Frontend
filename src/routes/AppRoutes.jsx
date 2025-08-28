@@ -27,9 +27,9 @@ const AppRoutes = () => (
     {/* Protected routes with layout */}
     <Route
       element={
-        // <ProtectedRoute>
+        <ProtectedRoute>
           <MainLayout />
-        // </ProtectedRoute>
+        </ProtectedRoute>
       }
     >
       <Route path="/home" element={<ResumeFormPage />} />

@@ -8,7 +8,7 @@ export const authAPI = {
   
   // Google OAuth
   googleLogin: () => {
-    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/auth/google`;
+    window.location.href = import.meta.env.VITE_BACKEND_URL;
   },
   
   // User management
@@ -16,6 +16,8 @@ export const authAPI = {
   logout: () => axiosInstance.post('/api/auth/logout'),
   
   // Token refresh
-  refreshToken: (refreshToken) => 
-    axiosInstance.post('/api/auth/refresh', { refreshToken })
+  refreshToken: (refreshToken) => { 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+    axiosInstance.post(`${backendUrl}/api/auth/refresh`, { refreshToken });
+  }
 };
