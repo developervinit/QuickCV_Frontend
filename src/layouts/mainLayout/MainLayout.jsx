@@ -1,9 +1,26 @@
-import { Outlet, NavLink } from "react-router-dom";
+//src/layouts/mainLayout/MainLayout.jsx
 import { useState } from "react";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../features/auth/authThunks';
 import styles from "./MLayout.module.css";
 
 const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if backend fails, we still want to log out locally
+      navigate('/login');
+    }
+  };
 
   return (
     <div className={styles.layoutContainer}>
@@ -25,9 +42,24 @@ const MainLayout = () => {
           <NavLink to="/resumelist" className={styles.navLink}>
             My Resumes
           </NavLink>
-          <NavLink to="/" className={styles.navLink}>
-            Log Out
-          </NavLink>
+          <div className={styles.container}>
+        <div className={styles.logo}>
+          <h1>QuickCV</h1>
+        </div>
+        <div className={styles.userMenu}>
+          {user && (
+            <div className={styles.userInfo}>
+              <span className={styles.userName}>{user.name}</span>
+              <button 
+                onClick={handleLogout}
+                className={styles.logoutButton}
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
         </aside>
 
         <main className={styles.content}>
