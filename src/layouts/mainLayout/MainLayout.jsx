@@ -1,8 +1,10 @@
 //src/layouts/mainLayout/MainLayout.jsx
 import { useState } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../features/auth/authThunks';
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../features/auth/authThunks";
+import UserInfo from "../../components/userInfo/UserInfo";
+import Logo from "../../components/logo/Logo";
 import styles from "./MLayout.module.css";
 
 const MainLayout = () => {
@@ -14,11 +16,11 @@ const MainLayout = () => {
   const handleLogout = async () => {
     try {
       await dispatch(logoutUser()).unwrap();
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
       // Even if backend fails, we still want to log out locally
-      navigate('/login');
+      navigate("/login");
     }
   };
 
@@ -36,6 +38,8 @@ const MainLayout = () => {
           >
             ☰
           </button>
+          <Logo />
+          <UserInfo name={true} image={true} imageSize="large" nameSize="large" />
           <NavLink to="/home" className={styles.navLink}>
             Create Resume
           </NavLink>
@@ -43,23 +47,19 @@ const MainLayout = () => {
             My Resumes
           </NavLink>
           <div className={styles.container}>
-        <div className={styles.logo}>
-          <h1>QuickCV</h1>
-        </div>
-        <div className={styles.userMenu}>
-          {user && (
-            <div className={styles.userInfo}>
-              <span className={styles.userName}>{user.name}</span>
-              <button 
-                onClick={handleLogout}
-                className={styles.logoutButton}
-              >
-                Logout
-              </button>
+            <div className={styles.userMenu}>
+              {user && (
+                <div className={styles.userInfo}>
+                  <button
+                    onClick={handleLogout}
+                    className={styles.logoutButton}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
+          </div>
         </aside>
 
         <main className={styles.content}>

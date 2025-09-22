@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.avatar {
+  object-fit: cover;
+  border: 2px solid #d1d5db; /* gray-300 */
+  width: var(--avatar-size, 40px);
+  height: var(--avatar-size, 40px);
+  border-radius: var(--avatar-radius, 50%);
+}
+
+.user-name {
+  margin-top: 12px;
+  color: #1f2937; /* gray-800 */
+  font-size: var(--avatar-name, 1.125rem);
+  font-weight: var(--avatar-name-weight, 600);
+}
