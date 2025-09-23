@@ -1,6 +1,6 @@
 // src/features/auth/authThunks.js
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loginStart, loginSuccess, loginFailure, logout as logoutAction, setUser } from './authSlice';
+import { loginStart, loginSuccess, loginFailure, logout as logoutAction, setUser, setCredentials } from './authSlice';
 import axios from '../../services/axiosInstance';
 import { toast } from 'react-toastify';
 
@@ -87,6 +87,58 @@ export const getCurrentUser = createAsyncThunk(
     } catch (error) {
       const errorMessage = 'Failed to fetch user data';
       return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// Check auth status to keep user logged-in.
+export const checkAuthStatus = createAsyncThunk(
+  'auth/checkAuthStatus',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token');
+      const refreshToken = localStorage.getItem('refreshToken');
+      
+      if (!token || !refreshToken) {
+        throw new Error('No tokens found');
+      }
+      
+      // Try to get user data with current token
+      const response = await axios.get('/api/auth/user');
+      dispatch(setCredentials({ 
+        token, 
+        refreshToken, 
+        user: response.data 
+      }));
+      
+      return response.data;
+    } catch (error) {
+      // If token is expired, try to refresh it
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) throw error;
+        
+        const response = await axios.post('/api/auth/refresh', { refreshToken });
+        const { token: newToken } = response.data;
+        
+        // Get user data with new token
+        const userResponse = await axios.get('/api/auth/user', {
+          headers: { Authorization: `Bearer ${newToken}` }
+        });
+        
+        dispatch(setCredentials({ 
+          token: newToken, 
+          refreshToken,
+          user: userResponse.data 
+        }));
+        
+        return userResponse.data;
+      } catch (refreshError) {
+        // If refresh fails, clear tokens and reject
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        return rejectWithValue('Authentication expired');
+      }
     }
   }
 );

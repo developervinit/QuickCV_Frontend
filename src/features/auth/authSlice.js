@@ -1,18 +1,24 @@
 // src/features/auth/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  user: null,
-  token: localStorage.getItem('token') || null,
-  refreshToken: localStorage.getItem('refreshToken') || null,
-  isAuthenticated: false,
-  loading: false,
-  error: null
+// Check localStorage on initial load to set proper initial state
+const getInitialState = () => {
+  const token = localStorage.getItem('token');
+  const refreshToken = localStorage.getItem('refreshToken');
+  
+  return {
+    user: null,
+    token,
+    refreshToken,
+    isAuthenticated: !!token, // If token exists, user is authenticated
+    loading: false,
+    error: null
+  };
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     loginStart: (state) => {
       state.loading = true;

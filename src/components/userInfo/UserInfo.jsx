@@ -14,8 +14,8 @@ const UserInfo = ({
     <div className={styles.container}>
       {image && (
         <img
-          src={user.profilePicture}
-          alt={user.name}
+          src={user?.profilePicture}
+          alt={user?.name}
           className={styles.avatar}
           style={{
             "--avatar-size":
@@ -47,10 +47,10 @@ const UserInfo = ({
               nameSize === "large" ? 600 : nameSize === "mid" ? 400 : 200,
           }}
         >
-          {user.name}
+          {user?.name}
         </p>
       )}
-      {email && <p className={styles.name}>{user.email}</p>}
+      {email && <p className={styles.name}>{user?.email}</p>}
     </div>
   );
 };
