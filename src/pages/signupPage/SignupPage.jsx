@@ -1,9 +1,10 @@
 // src/pages/signupPage/SignupPage.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupWithEmail } from '../../features/auth/authThunks';
+import { clearError } from '../../features/auth/authSlice';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 import Logo from '../../components/logo/Logo';
 import styles from './SignupPage.module.css';
@@ -13,6 +14,11 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const { initiateGoogleLogin } = useGoogleAuth();
   const { loading, error } = useSelector((state) => state.auth);
+  
+  // Clear any existing errors when component mounts
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
   
   const {
     register,

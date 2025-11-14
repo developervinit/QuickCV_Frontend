@@ -100,7 +100,9 @@ export const checkAuthStatus = createAsyncThunk(
       const refreshToken = localStorage.getItem('refreshToken');
       
       if (!token || !refreshToken) {
-        return rejectWithValue('No tokens found');
+        // No tokens is expected on login page, not an error
+        // Return null to indicate no tokens without setting error state
+        return rejectWithValue(null);
       }
       
       // Try to get user data with current token

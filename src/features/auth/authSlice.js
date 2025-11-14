@@ -68,6 +68,9 @@ const authSlice = createSlice({
       // Store tokens in localStorage
       localStorage.setItem('token', action.payload.token);
       localStorage.setItem('refreshToken', action.payload.refreshToken);
+    },
+    clearError: (state) => {
+      state.error = null;
     }
   },
   extraReducers: (builder) => {
@@ -91,10 +94,13 @@ const authSlice = createSlice({
         // Don't clear tokens here - let checkAuthStatus handle that
         const token = localStorage.getItem('token');
         state.isAuthenticated = !!token;
-        state.error = action.payload;
+        // Only set error if it's not null (null means no tokens, which is expected on login page)
+        if (action.payload !== null) {
+          state.error = action.payload;
+        }
       });
   }
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout, setUser, setCredentials } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, setUser, setCredentials, clearError } = authSlice.actions;
 export default authSlice.reducer;

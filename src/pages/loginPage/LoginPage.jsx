@@ -1,9 +1,10 @@
 // src/pages/loginPage/LoginPage.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginWithEmail } from '../../features/auth/authThunks';
+import { clearError } from '../../features/auth/authSlice';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 import styles from './LoginPage.module.css';
 import Logo from '../../components/logo/Logo';
@@ -13,6 +14,11 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { initiateGoogleLogin } = useGoogleAuth();
   const { loading, error } = useSelector((state) => state.auth);
+  
+  // Clear any existing errors when component mounts
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
   
   const {
     register,

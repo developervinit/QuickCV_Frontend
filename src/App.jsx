@@ -8,8 +8,14 @@ function App() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    // Check if user is already authenticated on app load
-    dispatch(checkAuthStatus());
+    // Only check auth status if tokens exist
+    // This prevents unnecessary API calls and error messages on login page
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+    
+    if (token && refreshToken) {
+      dispatch(checkAuthStatus());
+    }
   }, [dispatch]);
   
   return <AppRoutes />;
