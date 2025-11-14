@@ -1,5 +1,6 @@
 // src/features/auth/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+import { checkAuthStatus } from './authThunks';
 
 // Check localStorage on initial load to set proper initial state
 const getInitialState = () => {
@@ -68,6 +69,30 @@ const authSlice = createSlice({
       localStorage.setItem('token', action.payload.token);
       localStorage.setItem('refreshToken', action.payload.refreshToken);
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      // Handle checkAuthStatus pending state
+      .addCase(checkAuthStatus.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      // Handle checkAuthStatus fulfilled state
+      .addCase(checkAuthStatus.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null;
+      })
+      // Handle checkAuthStatus rejected state
+      .addCase(checkAuthStatus.rejected, (state, action) => {
+        state.loading = false;
+        // Only set isAuthenticated to false if tokens don't exist
+        // Don't clear tokens here - let checkAuthStatus handle that
+        const token = localStorage.getItem('token');
+        state.isAuthenticated = !!token;
+        state.error = action.payload;
+      });
   }
 });
 

@@ -7,7 +7,7 @@ import rootReducer from './rootReducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['resumeForm'] // persist only resumeForm slice (you can add others)
+  whitelist: ['resumeForm', 'auth'] // persist resumeForm and auth slices
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
