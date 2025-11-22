@@ -28,8 +28,16 @@
   gap: 1rem;
 }
 
+.cardBody {
+  flex: 1;
+  min-width: 0; /* Crucial for text truncation in flex items */
+}
+
 .cardBody h3 {
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .meta {
