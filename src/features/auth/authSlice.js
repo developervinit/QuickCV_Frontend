@@ -2,10 +2,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { checkAuthStatus } from './authThunks';
 
+const sanitizeStoredValue = (valueKey) => {
+  const raw = localStorage.getItem(valueKey);
+  if (!raw || raw === 'undefined' || raw === 'null') {
+    localStorage.removeItem(valueKey);
+    return null;
+  }
+  return raw;
+};
+
+const persistAuthValue = (key, value) => {
+  if (value && value !== 'undefined' && value !== 'null') {
+    localStorage.setItem(key, value);
+  } else {
+    localStorage.removeItem(key);
+  }
+};
+
 // Check localStorage on initial load to set proper initial state
 const getInitialState = () => {
-  const token = localStorage.getItem('token');
-  const refreshToken = localStorage.getItem('refreshToken');
+  const token = sanitizeStoredValue('token');
+  const refreshToken = sanitizeStoredValue('refreshToken');
   
   return {
     user: null,
@@ -34,8 +51,8 @@ const authSlice = createSlice({
       state.error = null;
       
       // Store tokens in localStorage
-      localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('refreshToken', action.payload.refreshToken);
+      persistAuthValue('token', action.payload.token);
+      persistAuthValue('refreshToken', action.payload.refreshToken);
     },
     loginFailure: (state, action) => {
       state.loading = false;
@@ -66,8 +83,8 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       
       // Store tokens in localStorage
-      localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('refreshToken', action.payload.refreshToken);
+      persistAuthValue('token', action.payload.token);
+      persistAuthValue('refreshToken', action.payload.refreshToken);
     },
     clearError: (state) => {
       state.error = null;

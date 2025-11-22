@@ -113,6 +113,67 @@
   justify-content: flex-start;
 }
 
+.aiSettingsCard {
+  border: 1px solid #dfe3f0;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aiSettingsCard h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.aiSettingsCard p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.aiProviderGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.promptLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.promptTextarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem;
+  min-height: 100px;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.promptTextarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+}
+
 .error {
   color: #b91c1c;
   font-size: 0.85rem;

@@ -12,4 +12,8 @@ export const step6LanguagesSchema = yup.object({
         .nullable(),
     })
   ),
+  aiSettings: yup.object({
+    provider: yup.string().oneOf(['openai', 'gemini']).required(),
+    prompt: yup.string().max(800, 'Instructions must be under 800 characters').nullable()
+  })
 });

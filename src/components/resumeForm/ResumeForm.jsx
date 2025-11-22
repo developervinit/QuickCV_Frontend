@@ -1,6 +1,6 @@
 // src/components/resumeForm/ResumeForm.jsx
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -12,7 +12,6 @@ import Step5Projects from './steps/step5Projects/Step5Projects';
 import Step6Languages from './steps/step6Languages/Step6Languages';
 
 import styles from './ResumeForm.module.css';
-import { setCurrentStep, resetForm } from '../../features/resumeForm/resumeFormSlice';
 import StepIndicator from './components/stepIndicator/StepIndicator';
 import axios from '../../services/axiosInstance'; // your axios instance
 
@@ -23,7 +22,6 @@ const toArrayFromComma = (str) =>
     .filter(Boolean);
 
 const ResumeForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentStep = useSelector((state) => state.resumeForm.ui.currentStep);
   const resumeState = useSelector((state) => state.resumeForm);
@@ -48,20 +46,13 @@ const ResumeForm = () => {
         certifications: resumeState.certifications,
         projects: resumeState.projects,
         languages: resumeState.languages,
+        aiSettings: resumeState.aiSettings
       };
 
-      console.log(payload);
+      await axios.post('/api/resumes', payload);
 
-      // adjust endpoint as needed
-      // const res = await axios.post('/api/resume', payload);
-
-      toast.success('Resume saved successfully');
-
-      // This is to reset the form. we will not reset the form on submitting it. 
-      // dispatch(resetForm());
-
-      // Optionally navigate to resume list / preview page
-      // navigate('/resume-list');
+      toast.success('AI resume generated! Find your download link on My Resumes.');
+      navigate('/resumelist');
     } catch (err) {
       console.error(err);
       toast.error(

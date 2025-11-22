@@ -7,8 +7,8 @@ export const step3EducationSchema = yup.object({
       id: yup.string().nullable(), // keep id if present
       degree: yup.string().nullable(),
       university: yup.string().nullable(),
-      startDate: yup.date().typeError('Invalid date').nullable(),
-      endDate: yup.date().typeError('Invalid date').nullable(),
+      startDate: yup.string().nullable(),
+      endDate: yup.string().nullable(),
       percentageCgpa: yup.string().nullable(),
       specialization: yup.string().nullable(),
     })

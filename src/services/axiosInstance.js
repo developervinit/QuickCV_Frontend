@@ -50,17 +50,17 @@ axiosInstance.interceptors.response.use(
             { refreshToken }
           );
           
-          const { accessToken } = response.data;
+          const { token: newAccessToken, refreshToken: newRefreshToken } = response.data;
           
           // Update store with new token
           store.dispatch(setCredentials({ 
-            token: accessToken,
-            refreshToken: response.data.refreshToken,
+            token: newAccessToken,
+            refreshToken: newRefreshToken || refreshToken,
             user: state.auth.user
           }));
           
           // Retry original request
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {

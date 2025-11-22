@@ -12,6 +12,7 @@ import StepNavigation from '../../components/stepNavigation/StepNavigation';
 import {
   setLanguages,
   setCurrentStep,
+  setAiSettings
 } from '../../../../features/resumeForm/resumeFormSlice';
 
 const useEmptyLanguage = () =>
@@ -27,11 +28,18 @@ const useEmptyLanguage = () =>
 const Step6Languages = ({ onSubmitAll }) => {
   const dispatch = useDispatch();
   const stored = useSelector((s) => s.resumeForm.languages);
+  const storedAiSettings = useSelector((s) => s.resumeForm.aiSettings);
   const emptyLanguage = useEmptyLanguage();
 
   const defaults = useMemo(
-    () => ({ languages: stored && stored.length > 0 ? stored : [emptyLanguage] }),
-    [stored, emptyLanguage]
+    () => ({
+      languages: stored && stored.length > 0 ? stored : [emptyLanguage],
+      aiSettings: {
+        provider: storedAiSettings?.provider || 'openai',
+        prompt: storedAiSettings?.prompt || ''
+      }
+    }),
+    [stored, emptyLanguage, storedAiSettings]
   );
 
   const {
@@ -54,6 +62,7 @@ const Step6Languages = ({ onSubmitAll }) => {
   });
 
   const [expandedIndex, setExpandedIndex] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (stored?.length > 0) setExpandedIndex(0);
@@ -75,17 +84,29 @@ const Step6Languages = ({ onSubmitAll }) => {
     // persist current (even if partial) then go back to Step 5
     const data = getValues();
     dispatch(setLanguages(normalizeLanguages(data.languages)));
+    dispatch(setAiSettings({
+      provider: data.aiSettings?.provider || 'openai',
+      prompt: data.aiSettings?.prompt || ''
+    }));
     dispatch(setCurrentStep(5));
   };
 
   // On submit: persist languages and call parent handler to submit full payload
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const normalized = normalizeLanguages(data.languages);
     dispatch(setLanguages(normalized));
+    dispatch(setAiSettings({
+      provider: data.aiSettings?.provider || 'openai',
+      prompt: data.aiSettings?.prompt || ''
+    }));
 
-    // call parent handler that will collect all redux state and perform final API submit
     if (typeof onSubmitAll === 'function') {
-      onSubmitAll();
+      try {
+        setIsSubmitting(true);
+        await onSubmitAll();
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -188,6 +209,43 @@ const Step6Languages = ({ onSubmitAll }) => {
         })}
       </div>
 
+      <div className={styles.aiSettingsCard}>
+        <h3>AI Generation Preferences</h3>
+        <p>Select your preferred AI engine and provide any custom instructions.</p>
+
+        <div className={styles.aiProviderGroup}>
+          <label className={styles.radioLabel}>
+            <input
+              type="radio"
+              value="openai"
+              {...register('aiSettings.provider')}
+            />
+            OpenAI (GPT-4o Mini)
+          </label>
+          <label className={styles.radioLabel}>
+            <input
+              type="radio"
+              value="gemini"
+              {...register('aiSettings.provider')}
+            />
+            Google Gemini 1.5
+          </label>
+        </div>
+
+        <label className={styles.promptLabel}>
+          Custom Instructions (optional)
+          <textarea
+            className={styles.promptTextarea}
+            rows="4"
+            placeholder="Highlight cloud migrations, emphasize leadership, etc."
+            {...register('aiSettings.prompt')}
+          />
+          {errors?.aiSettings?.prompt && (
+            <small className={styles.error}>{errors.aiSettings.prompt.message}</small>
+          )}
+        </label>
+      </div>
+
       <div className={styles.footerRow}>
         <button type="button" className={styles.addBtn} onClick={handleAdd}>
           + Add another language
@@ -201,8 +259,8 @@ const Step6Languages = ({ onSubmitAll }) => {
           // onNext will be the submit for the final step
           onNext={handleSubmit(onSubmit)}
           backLabel="Back"
-          nextLabel="Submit"
-          isSubmitting={false}
+          nextLabel={isSubmitting ? 'Generating...' : 'Generate AI Resume'}
+          isSubmitting={isSubmitting}
         />
       </div>
     </form>

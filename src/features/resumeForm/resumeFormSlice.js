@@ -19,6 +19,10 @@ const initialState = {
   certifications: [],      // step 4
   projects: [],            // step 5
   languages: [],           // step 6  <-- NEW
+  aiSettings: {
+    provider: 'openai',
+    prompt: ''
+  },
   ui: {
     currentStep: 1,
   },
@@ -120,6 +124,14 @@ const resumeFormSlice = createSlice({
       state.languages = state.languages.filter((l) => l.id !== action.payload);
     },
 
+    // AI Settings
+    setAiSettings(state, action) {
+      state.aiSettings = {
+        ...state.aiSettings,
+        ...action.payload
+      };
+    },
+
     // NAV / COMMON
     setCurrentStep(state, action) {
       state.ui.currentStep = action.payload;
@@ -155,6 +167,8 @@ export const {
   addLanguageItem,
   updateLanguageItem,
   removeLanguageItem,
+
+  setAiSettings,
 
   setCurrentStep,
   resetForm,
