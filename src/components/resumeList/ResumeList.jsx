@@ -46,6 +46,21 @@ const ResumeList = () => {
     return parsed.toLocaleString();
   };
 
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this resume? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await axios.delete(`/api/resumes/${id}`);
+      setResumes((prev) => prev.filter((resume) => resume._id !== id));
+      toast.success('Resume deleted successfully');
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to delete resume');
+    }
+  };
+
   if (loading) {
     return (
       <div className={styles.stateCard}>
@@ -132,13 +147,19 @@ const ResumeList = () => {
                 <Link className={styles.secondaryBtn} to="/home">
                   Edit
                 </Link>
+                <button
+                  className={styles.secondaryBtn}
+                  onClick={() => handleDelete(resume._id)}
+                  style={{ borderColor: '#ef4444', color: '#ef4444' }}
+                >
+                  Delete
+                </button>
                 <a
                   href={downloadDisabled ? undefined : resume.latestPdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.primaryBtn} ${
-                    downloadDisabled ? styles.disabledBtn : ''
-                  }`}
+                  className={`${styles.primaryBtn} ${downloadDisabled ? styles.disabledBtn : ''
+                    }`}
                   onClick={(event) => {
                     if (downloadDisabled) {
                       event.preventDefault();
